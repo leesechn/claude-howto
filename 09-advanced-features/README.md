@@ -5,7 +5,7 @@
 
 # Advanced Features
 
-Comprehensive guide to Claude Code's advanced capabilities including planning mode, extended thinking, auto mode, background tasks, permission modes, print mode (non-interactive), session management, interactive features, channels, voice dictation, remote control, web sessions, desktop app, task list, prompt suggestions, git worktrees, sandboxing, managed settings, and configuration.
+Comprehensive guide to Claude Code's advanced capabilities including planning mode, extended thinking, auto mode, background tasks, permission modes, print mode (non-interactive), session management, interactive features, channels, voice dictation, remote control, web sessions, desktop app, task list, prompt suggestions, git worktrees, sandboxing, managed settings, external CLI agents, and configuration.
 
 ## Table of Contents
 
@@ -36,8 +36,9 @@ Comprehensive guide to Claude Code's advanced capabilities including planning mo
 25. [Managed Settings (Enterprise)](#managed-settings-enterprise)
 26. [Configuration and Settings](#configuration-and-settings)
 27. [Agent Teams](#agent-teams)
-28. [Best Practices](#best-practices)
-29. [Additional Resources](#additional-resources)
+28. [External CLI Agents](#external-cli-agents)
+29. [Best Practices](#best-practices)
+30. [Additional Resources](#additional-resources)
 
 ---
 
@@ -2367,6 +2368,34 @@ claude --teammate-mode in-process
 
 ---
 
+## External CLI Agents
+
+Claude Code can delegate to other headless coding agents — OpenAI's Codex CLI, Google's Gemini CLI, and Alibaba's Qwen Code — and fold their answers back into one session. Useful for second opinions from a different model family, for offloading large-context analysis, and for routing bulk work to a cheaper model.
+
+Three integration patterns:
+
+| Pattern | How | Works with |
+|---------|-----|-----------|
+| **Bash delegation** | Claude Code shells out to `codex exec`, `gemini -p`, `qwen -p` | All three |
+| **MCP client** | `claude mcp add --transport stdio codex -- codex mcp-server` | Codex only |
+| **Reverse** | `claude mcp serve` exposes Claude Code to the other agent | All three |
+
+Quick start:
+
+```bash
+# Read-only second opinion from Codex
+codex exec --sandbox read-only "Review src/auth/session.py for race conditions."
+
+# Allowlist it so it does not prompt every time (.claude/settings.json)
+# "permissions": { "allow": ["Bash(codex exec:*)"] }
+```
+
+> **Warning**: Every delegated call sends your prompt and often your source files to a third-party provider. Keep delegated calls read-only, and check your organization's data-handling policy first.
+
+See [external-cli-agents.md](external-cli-agents.md) for the full guide — 2026 authentication changes that break older tutorials, a wrapper script with timeouts, a `second-opinion` subagent that keeps external output out of your main context, and shared `AGENTS.md` setup so all four agents read one set of conventions.
+
+---
+
 ## Best Practices
 
 ### Planning Mode
@@ -2400,6 +2429,12 @@ claude --teammate-mode in-process
 - ✅ Clean up old sessions
 - ❌ Don't mix unrelated work in one session
 
+### External CLI Agents
+- ✅ Keep every delegated call read-only
+- ✅ Set a timeout on every external call
+- ✅ Run delegation through a subagent to protect your context
+- ❌ Don't send proprietary code to a second vendor without checking policy
+
 ---
 
 ## Additional Resources
@@ -2409,6 +2444,7 @@ For more information about Claude Code and related features:
 - [Official Interactive Mode Documentation](https://code.claude.com/docs/en/interactive-mode)
 - [Official Headless Mode Documentation](https://code.claude.com/docs/en/headless)
 - [CLI Reference](https://code.claude.com/docs/en/cli-reference)
+- [External CLI Agents](external-cli-agents.md) - Delegating to Codex, Gemini, and Qwen
 - [Checkpoints Guide](../08-checkpoints/) - Session management and rewinding
 - [Slash Commands](../01-slash-commands/) - Command reference
 - [Memory Guide](../02-memory/) - Persistent context

@@ -244,7 +244,14 @@
     "MSIX",
     "NONSTREAMING",
     "startswith",
-    "unparse"
+    "unparse",
+    "Codex",
+    "Qwen",
+    "Gemini",
+    "Antigravity",
+    "ModelStudio",
+    "Alibaba",
+    "qwenlm"
   ],
   "ignoreWords": [
     "luongnv89",

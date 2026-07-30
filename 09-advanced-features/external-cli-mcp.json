@@ -1,0 +1,11 @@
+{
+  "_comment": "Register external CLI agents as MCP servers. Copy to .mcp.json in your project root. Only Codex ships a native MCP server mode; Gemini CLI and Qwen Code are MCP clients, so reach those through Bash delegation instead (see external-cli-agents.md).",
+  "mcpServers": {
+    "codex": {
+      "_comment": "Exposes the codex and codex-reply tools. Session continuity via threadId lets Claude Code ask follow-ups without resending context. Marked experimental by OpenAI — command name may change between releases.",
+      "type": "stdio",
+      "command": "codex",
+      "args": ["mcp-server"]
+    }
+  }
+}

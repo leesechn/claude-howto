@@ -1,5 +1,29 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **External CLI agents guide** — `09-advanced-features/external-cli-agents.md`
+  covers using OpenAI Codex CLI, Google Gemini CLI, and Qwen Code alongside
+  Claude Code. Three integration patterns (Bash delegation, Codex's native
+  `codex mcp-server` over MCP, and the reverse direction via
+  `claude mcp serve`), plus shared `AGENTS.md` setup so all four agents read
+  one set of conventions.
+- **Templates** — `ask-external-agent.sh` (read-only, time-boxed dispatcher
+  for all three CLIs), `second-opinion.md` (subagent that absorbs external
+  output in an isolated context and reports only the verdict), and
+  `external-cli-mcp.json` (Codex MCP server registration).
+- **2026 authentication changes documented** — Gemini CLI stopped serving
+  Google AI Pro/Ultra and free Code Assist individual accounts on 2026-06-18
+  (the Apache-2.0 repo is still shipping; paid `GEMINI_API_KEY`, Vertex AI, and
+  Code Assist Standard/Enterprise still work, and Google's stated successor for
+  individuals is Antigravity CLI). The Qwen OAuth free tier was discontinued on
+  2026-04-15. Both break tutorials written earlier in the year.
+- **Cross-links** — `05-mcp/README.md` (Claude as MCP Server, Related
+  Concepts), `09-advanced-features/README.md` (new section, TOC, best
+  practices), and the root `README.md` advanced-features list.
+
 ## [v2.1.217] — 2026-07-22
 
 ### Synced to Claude Code v2.1.217

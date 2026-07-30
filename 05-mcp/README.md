@@ -702,6 +702,15 @@ claude mcp add --transport stdio claude-agent -- claude mcp serve
 
 This is useful for building multi-agent workflows where one Claude instance orchestrates another.
 
+The same mechanism works across vendors: Codex CLI, Gemini CLI, and Qwen Code are all MCP clients, so each can register `claude mcp serve` as a sub-agent (`codex mcp add claude -- claude mcp serve`). Going the other direction, Codex ships its own server mode that Claude Code can consume:
+
+```bash
+# Register Codex CLI as an MCP server inside Claude Code
+claude mcp add --transport stdio codex -- codex mcp-server
+```
+
+See [External CLI Agents](../09-advanced-features/external-cli-agents.md) for the full guide to combining Claude Code with Codex, Gemini, and Qwen.
+
 ## Managed MCP Configuration (Enterprise)
 
 For enterprise deployments, IT administrators can enforce MCP server policies through the `managed-mcp.json` configuration file. This file provides exclusive control over which MCP servers are permitted or blocked organization-wide.
@@ -1182,6 +1191,7 @@ export GITHUB_TOKEN="your_token"
 - Combine MCP with Memory for rich context
 - Use MCP tools in prompts for better reasoning
 - Leverage multiple MCPs for complex workflows
+- Reach other vendors' agents — see [External CLI Agents](../09-advanced-features/external-cli-agents.md)
 
 ## Additional Resources
 

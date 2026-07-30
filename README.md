@@ -562,6 +562,7 @@ Configure hooks in `~/.claude/settings.json`:
 - **Permission Modes** — `manual` (formerly `default`; `default` still accepted), `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`
 - **Headless Mode** — Run Claude Code in CI/CD: `claude -p "Run tests and generate report"`
 - **Session Management** — `/resume`, `/rename`, `/fork`, `/branch`, `claude -c`, `claude -r`
+- **External CLI Agents** — Delegate to Codex, Gemini, and Qwen for second opinions ([guide](09-advanced-features/external-cli-agents.md))
 - **Configuration** — Customize behavior in `~/.claude/settings.json`
 
 See [config-examples.json](09-advanced-features/config-examples.json) for complete configurations.
